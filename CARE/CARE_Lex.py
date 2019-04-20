@@ -7,7 +7,9 @@ reserved = {
     "addPatient": "addPatient",
     "HELP": "HELP",
     "EXIT": "EXIT",
-    "NAME": "NAME"
+    "NAME": "NAME",
+    "HAS": " HAS",
+    "DIAGNOSE": "DIAGNOSE"
 
 }
 
