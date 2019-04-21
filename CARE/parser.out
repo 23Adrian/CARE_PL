@@ -1,0 +1,77 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMA
+    DIAGNOSE
+    HAS
+    ID
+    LP
+    NAME
+    PERIOD
+    RP
+    SEMICOLON
+    STRING
+    addPatient
+    removePatient
+
+Grammar
+
+Rule 0     S' -> func
+Rule 1     func -> HELP
+Rule 2     func -> EXIT
+
+Terminals, with rules where they appear
+
+COMMA                : 
+DIAGNOSE             : 
+EXIT                 : 2
+HAS                  : 
+HELP                 : 1
+ID                   : 
+LP                   : 
+NAME                 : 
+PERIOD               : 
+RP                   : 
+SEMICOLON            : 
+STRING               : 
+addPatient           : 
+error                : 
+removePatient        : 
+
+Nonterminals, with rules where they appear
+
+func                 : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . func
+    (1) func -> . HELP
+    (2) func -> . EXIT
+
+    HELP            shift and go to state 2
+    EXIT            shift and go to state 3
+
+    func                           shift and go to state 1
+
+state 1
+
+    (0) S' -> func .
+
+
+
+state 2
+
+    (1) func -> HELP .
+
+    $end            reduce using rule 1 (func -> HELP .)
+
+
+state 3
+
+    (2) func -> EXIT .
+
+    $end            reduce using rule 2 (func -> EXIT .)
+

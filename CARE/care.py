@@ -1,16 +1,16 @@
 import sys
-import CARE.CARE_Parse as parse
+from CARE import care_parse
 
 print("Welcome to CARE")
 print("")
 
 while True:
     try:
-        s = input('CARE >>')
+        s = input('CARE >> ')
 
     except EOFError:
         break
     print("")
-    parse.do_parse(s)
+    care_parse.do_parse(s)
     print("")
 
