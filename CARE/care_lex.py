@@ -2,13 +2,9 @@ import ply.lex as lex
 
 reserved = {
 
-    "removePatient": "removePatient",
-    "addPatient": "addPatient",
-    "HELP": "HELP",
-    "EXIT": "EXIT",
-    "NAME": "NAME",
-    "HAS": "HAS",
-    "DIAGNOSE": "DIAGNOSE"
+    'Patient':'PATIENT',
+    'True': 'TRUE',
+    'False': 'FALSE'
 
 }
 
@@ -31,10 +27,6 @@ def t_ID(t):
     return t
 
 
-def t_STRING(t):
-    r'\"[a-zA-Z0-9_?!@#$%&*-+().~, \t\n]*\"'
-    return t
-
 def t_error(t):
     print("Error")
     print(t)
@@ -51,4 +43,16 @@ t_SEMICOLON = r';'
 t_COMMA = r'\,'
 
 lexer = lex.lex()
+
+data = "Armando.()"
+
+lexer.input(data)
+
+while 1:
+     tok = lexer.token()
+     if not tok: break
+     print(tok)
+
+
+
 

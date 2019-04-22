@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMMA DIAGNOSE EXIT HAS HELP ID LP NAME PERIOD RP SEMICOLON STRING addPatient removePatient\n    func : HELP\n        | EXIT\n    '
+_lr_signature = 'COMMA FALSE ID LP PATIENT PERIOD RP SEMICOLON STRING TRUE program : function\n                | create_patient \n    function : ID\n    create_patient : ID PERIOD LP RP\n                      | ID PERIOD ID LP ID RP '
     
-_lr_action_items = {'HELP':([0,],[2,]),'EXIT':([0,],[3,]),'$end':([1,2,3,],[0,-1,-2,]),}
+_lr_action_items = {'ID':([0,5,8,],[4,6,10,]),'$end':([1,2,3,4,9,11,],[0,-1,-2,-3,-4,-5,]),'PERIOD':([4,],[5,]),'LP':([5,6,],[7,8,]),'RP':([7,10,],[9,11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'func':([0,],[1,]),}
+_lr_goto_items = {'program':([0,],[1,]),'function':([0,],[2,]),'create_patient':([0,],[3,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,7 +26,10 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> func","S'",1,None,None,None),
-  ('func -> HELP','func',1,'p_func','care_parse.py',11),
-  ('func -> EXIT','func',1,'p_func','care_parse.py',12),
+  ("S' -> program","S'",1,None,None,None),
+  ('program -> function','program',1,'p_program','care_parse.py',10),
+  ('program -> create_patient','program',1,'p_program','care_parse.py',11),
+  ('function -> ID','function',1,'p_function','care_parse.py',15),
+  ('create_patient -> ID PERIOD LP RP','create_patient',4,'p_create_patient','care_parse.py',24),
+  ('create_patient -> ID PERIOD ID LP ID RP','create_patient',6,'p_create_patient','care_parse.py',25),
 ]

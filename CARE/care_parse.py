@@ -3,21 +3,34 @@ from CARE import care_lex, function_runner
 
 
 tokens = care_lex.tokens
-patients = []
+patients = {}
+patient_symptoms = {}
 
+def p_program(t):
+    ''' program : function
+                | create_patient '''
 
-def p_func(p):
+def p_function(p):
     '''
-    func : HELP
-        | EXIT
+    function : ID
     '''
 
-    if str(p[1]) == "HELP" or str(p[1]) == "EXIT":
-        function_runner.func_parse(p[1])
+    if p[1] == "HELP" or p[1] == "help" or p[1] == "Help":
+        function_runner.display_help()
+    elif p[1] == "EXIT" or p[1] == "exit" or p[1] == "Exit":
+        function_runner.exit_program()
+
+def p_create_patient(p):
+    '''create_patient : ID PERIOD LP RP
+                      | ID PERIOD ID LP ID RP '''
+    if len(p) == 5:
+        function_runner.createPatient(str(p[1]))
+    if len(p) == 7 and p[3] == "has":
+        function_runner.create_patient_with_symptom(str(p[1]), str(p[5]))
 
 
-def p_error(p):
-    print("Syntax error." + str(p))
+def p_error(t):
+    print("Syntax error at '%s'" % t.value)
 
 
 def do_parse(s):

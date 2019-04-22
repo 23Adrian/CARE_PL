@@ -3,75 +3,135 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     COMMA
-    DIAGNOSE
-    HAS
-    ID
-    LP
-    NAME
-    PERIOD
-    RP
+    FALSE
+    PATIENT
     SEMICOLON
     STRING
-    addPatient
-    removePatient
+    TRUE
 
 Grammar
 
-Rule 0     S' -> func
-Rule 1     func -> HELP
-Rule 2     func -> EXIT
+Rule 0     S' -> program
+Rule 1     program -> function
+Rule 2     program -> create_patient
+Rule 3     function -> ID
+Rule 4     create_patient -> ID PERIOD LP RP
+Rule 5     create_patient -> ID PERIOD ID LP ID RP
 
 Terminals, with rules where they appear
 
 COMMA                : 
-DIAGNOSE             : 
-EXIT                 : 2
-HAS                  : 
-HELP                 : 1
-ID                   : 
-LP                   : 
-NAME                 : 
-PERIOD               : 
-RP                   : 
+FALSE                : 
+ID                   : 3 4 5 5 5
+LP                   : 4 5
+PATIENT              : 
+PERIOD               : 4 5
+RP                   : 4 5
 SEMICOLON            : 
 STRING               : 
-addPatient           : 
+TRUE                 : 
 error                : 
-removePatient        : 
 
 Nonterminals, with rules where they appear
 
-func                 : 0
+create_patient       : 2
+function             : 1
+program              : 0
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . func
-    (1) func -> . HELP
-    (2) func -> . EXIT
+    (0) S' -> . program
+    (1) program -> . function
+    (2) program -> . create_patient
+    (3) function -> . ID
+    (4) create_patient -> . ID PERIOD LP RP
+    (5) create_patient -> . ID PERIOD ID LP ID RP
 
-    HELP            shift and go to state 2
-    EXIT            shift and go to state 3
+    ID              shift and go to state 4
 
-    func                           shift and go to state 1
+    program                        shift and go to state 1
+    function                       shift and go to state 2
+    create_patient                 shift and go to state 3
 
 state 1
 
-    (0) S' -> func .
+    (0) S' -> program .
 
 
 
 state 2
 
-    (1) func -> HELP .
+    (1) program -> function .
 
-    $end            reduce using rule 1 (func -> HELP .)
+    $end            reduce using rule 1 (program -> function .)
 
 
 state 3
 
-    (2) func -> EXIT .
+    (2) program -> create_patient .
 
-    $end            reduce using rule 2 (func -> EXIT .)
+    $end            reduce using rule 2 (program -> create_patient .)
+
+
+state 4
+
+    (3) function -> ID .
+    (4) create_patient -> ID . PERIOD LP RP
+    (5) create_patient -> ID . PERIOD ID LP ID RP
+
+    $end            reduce using rule 3 (function -> ID .)
+    PERIOD          shift and go to state 5
+
+
+state 5
+
+    (4) create_patient -> ID PERIOD . LP RP
+    (5) create_patient -> ID PERIOD . ID LP ID RP
+
+    LP              shift and go to state 7
+    ID              shift and go to state 6
+
+
+state 6
+
+    (5) create_patient -> ID PERIOD ID . LP ID RP
+
+    LP              shift and go to state 8
+
+
+state 7
+
+    (4) create_patient -> ID PERIOD LP . RP
+
+    RP              shift and go to state 9
+
+
+state 8
+
+    (5) create_patient -> ID PERIOD ID LP . ID RP
+
+    ID              shift and go to state 10
+
+
+state 9
+
+    (4) create_patient -> ID PERIOD LP RP .
+
+    $end            reduce using rule 4 (create_patient -> ID PERIOD LP RP .)
+
+
+state 10
+
+    (5) create_patient -> ID PERIOD ID LP ID . RP
+
+    RP              shift and go to state 11
+
+
+state 11
+
+    (5) create_patient -> ID PERIOD ID LP ID RP .
+
+    $end            reduce using rule 5 (create_patient -> ID PERIOD ID LP ID RP .)
 
