@@ -1,6 +1,9 @@
 import sys
 from CARE import care_parse
 
+cold = [ "sneezing", "sore throat", "congestion" ,"fatigue"]
+flu = [ "chills" , "fever", "headache", "cough", "aches", "fatigue" ]
+
 def func_parse(func):
     if func == "HELP":
         display_help()
