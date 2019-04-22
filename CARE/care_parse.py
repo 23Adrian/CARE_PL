@@ -40,7 +40,8 @@ def p_list_symptoms(p):
 def p_diagnose_patient(p):
     ''' diagnose_patient : ID PERIOD ID LP RP'''
     if len(p) == 6 and p[3] == "diagnose":
-        function_runner.diagnose(str(p[1]))
+        
+        function_runner.diagnose_patient(str(p[1]))
 
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
