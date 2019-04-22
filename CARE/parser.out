@@ -2,11 +2,8 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    COMMA
     FALSE
     PATIENT
-    SEMICOLON
-    STRING
     TRUE
 
 Grammar
@@ -14,28 +11,30 @@ Grammar
 Rule 0     S' -> program
 Rule 1     program -> function
 Rule 2     program -> create_patient
-Rule 3     function -> ID
-Rule 4     create_patient -> ID PERIOD LP RP
-Rule 5     create_patient -> ID PERIOD ID LP ID RP
+Rule 3     program -> add_symptoms
+Rule 4     program -> list_symptoms
+Rule 5     function -> ID
+Rule 6     create_patient -> ID PERIOD LP RP
+Rule 7     add_symptoms -> ID PERIOD ID LP ID RP
+Rule 8     list_symptoms -> ID PERIOD ID LP RP
 
 Terminals, with rules where they appear
 
-COMMA                : 
 FALSE                : 
-ID                   : 3 4 5 5 5
-LP                   : 4 5
+ID                   : 5 6 7 7 7 8 8
+LP                   : 6 7 8
 PATIENT              : 
-PERIOD               : 4 5
-RP                   : 4 5
-SEMICOLON            : 
-STRING               : 
+PERIOD               : 6 7 8
+RP                   : 6 7 8
 TRUE                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
+add_symptoms         : 3
 create_patient       : 2
 function             : 1
+list_symptoms        : 4
 program              : 0
 
 Parsing method: LALR
@@ -45,15 +44,20 @@ state 0
     (0) S' -> . program
     (1) program -> . function
     (2) program -> . create_patient
-    (3) function -> . ID
-    (4) create_patient -> . ID PERIOD LP RP
-    (5) create_patient -> . ID PERIOD ID LP ID RP
+    (3) program -> . add_symptoms
+    (4) program -> . list_symptoms
+    (5) function -> . ID
+    (6) create_patient -> . ID PERIOD LP RP
+    (7) add_symptoms -> . ID PERIOD ID LP ID RP
+    (8) list_symptoms -> . ID PERIOD ID LP RP
 
-    ID              shift and go to state 4
+    ID              shift and go to state 6
 
     program                        shift and go to state 1
     function                       shift and go to state 2
     create_patient                 shift and go to state 3
+    add_symptoms                   shift and go to state 4
+    list_symptoms                  shift and go to state 5
 
 state 1
 
@@ -77,61 +81,87 @@ state 3
 
 state 4
 
-    (3) function -> ID .
-    (4) create_patient -> ID . PERIOD LP RP
-    (5) create_patient -> ID . PERIOD ID LP ID RP
+    (3) program -> add_symptoms .
 
-    $end            reduce using rule 3 (function -> ID .)
-    PERIOD          shift and go to state 5
+    $end            reduce using rule 3 (program -> add_symptoms .)
 
 
 state 5
 
-    (4) create_patient -> ID PERIOD . LP RP
-    (5) create_patient -> ID PERIOD . ID LP ID RP
+    (4) program -> list_symptoms .
 
-    LP              shift and go to state 7
-    ID              shift and go to state 6
+    $end            reduce using rule 4 (program -> list_symptoms .)
 
 
 state 6
 
-    (5) create_patient -> ID PERIOD ID . LP ID RP
+    (5) function -> ID .
+    (6) create_patient -> ID . PERIOD LP RP
+    (7) add_symptoms -> ID . PERIOD ID LP ID RP
+    (8) list_symptoms -> ID . PERIOD ID LP RP
 
-    LP              shift and go to state 8
+    $end            reduce using rule 5 (function -> ID .)
+    PERIOD          shift and go to state 7
 
 
 state 7
 
-    (4) create_patient -> ID PERIOD LP . RP
+    (6) create_patient -> ID PERIOD . LP RP
+    (7) add_symptoms -> ID PERIOD . ID LP ID RP
+    (8) list_symptoms -> ID PERIOD . ID LP RP
 
-    RP              shift and go to state 9
+    LP              shift and go to state 9
+    ID              shift and go to state 8
 
 
 state 8
 
-    (5) create_patient -> ID PERIOD ID LP . ID RP
+    (7) add_symptoms -> ID PERIOD ID . LP ID RP
+    (8) list_symptoms -> ID PERIOD ID . LP RP
 
-    ID              shift and go to state 10
+    LP              shift and go to state 10
 
 
 state 9
 
-    (4) create_patient -> ID PERIOD LP RP .
-
-    $end            reduce using rule 4 (create_patient -> ID PERIOD LP RP .)
-
-
-state 10
-
-    (5) create_patient -> ID PERIOD ID LP ID . RP
+    (6) create_patient -> ID PERIOD LP . RP
 
     RP              shift and go to state 11
 
 
+state 10
+
+    (7) add_symptoms -> ID PERIOD ID LP . ID RP
+    (8) list_symptoms -> ID PERIOD ID LP . RP
+
+    ID              shift and go to state 12
+    RP              shift and go to state 13
+
+
 state 11
 
-    (5) create_patient -> ID PERIOD ID LP ID RP .
+    (6) create_patient -> ID PERIOD LP RP .
 
-    $end            reduce using rule 5 (create_patient -> ID PERIOD ID LP ID RP .)
+    $end            reduce using rule 6 (create_patient -> ID PERIOD LP RP .)
+
+
+state 12
+
+    (7) add_symptoms -> ID PERIOD ID LP ID . RP
+
+    RP              shift and go to state 14
+
+
+state 13
+
+    (8) list_symptoms -> ID PERIOD ID LP RP .
+
+    $end            reduce using rule 8 (list_symptoms -> ID PERIOD ID LP RP .)
+
+
+state 14
+
+    (7) add_symptoms -> ID PERIOD ID LP ID RP .
+
+    $end            reduce using rule 7 (add_symptoms -> ID PERIOD ID LP ID RP .)
 

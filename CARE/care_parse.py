@@ -8,7 +8,9 @@ patient_symptoms = {}
 
 def p_program(t):
     ''' program : function
-                | create_patient '''
+                | create_patient
+                | add_symptoms
+                | list_symptoms '''
 
 def p_function(p):
     '''
@@ -21,13 +23,19 @@ def p_function(p):
         function_runner.exit_program()
 
 def p_create_patient(p):
-    '''create_patient : ID PERIOD LP RP
-                      | ID PERIOD ID LP ID RP '''
+    '''create_patient : ID PERIOD LP RP'''
     if len(p) == 5:
         function_runner.createPatient(str(p[1]))
-    if len(p) == 7 and p[3] == "has":
-        function_runner.create_patient_with_symptom(str(p[1]), str(p[5]))
 
+def p_add_symptoms(p):
+    ''' add_symptoms : ID PERIOD ID LP ID RP '''
+    if len(p) == 7 and p[3] == "has":
+        function_runner.add_symptom(str(p[1]), str(p[5]))
+
+def p_list_symptoms(p):
+    ''' list_symptoms : ID PERIOD ID LP RP'''
+    if len(p) == 6 and p[3] == "list":
+        function_runner.list_symptoms(str(p[1]))
 
 def p_error(t):
     print("Syntax error at '%s'" % t.value)

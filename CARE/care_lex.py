@@ -12,10 +12,8 @@ tokens = [
     'ID',
     'LP',
     'RP',
-    'SEMICOLON',
-    'PERIOD',
-    'COMMA',
-    'STRING'
+    'PERIOD'
+
 ] + list(reserved.values())
 
 t_ignore = r' '
@@ -38,21 +36,7 @@ t_RP = r'\)'
 
 t_PERIOD = r'\.'
 
-t_SEMICOLON = r';'
-
-t_COMMA = r'\,'
-
 lexer = lex.lex()
-
-data = "Armando.()"
-
-lexer.input(data)
-
-while 1:
-     tok = lexer.token()
-     if not tok: break
-     print(tok)
-
 
 
 
