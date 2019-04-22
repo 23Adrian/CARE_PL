@@ -1,8 +1,9 @@
 import sys
 from CARE import care_parse
 
-cold = [ "sneezing", "sore throat", "congestion" ,"fatigue"]
-flu = [ "chills" , "fever", "headache", "cough", "aches", "fatigue" ]
+cold = ["fever", "congestion", "coughing"]
+flu = ["fever", "congestion", "coughing", "bodyache"]
+
 
 def func_parse(func):
     if func == "HELP":
@@ -11,6 +12,7 @@ def func_parse(func):
         exit_program()
     else:
         print("Function is not valid")
+
 
 def create_patient(name):
     if name.lower() in care_parse.patients:
@@ -30,6 +32,7 @@ def add_symptom(name, symptom):
         print("Adding symptom -> " + symptom + " to patient " + name.capitalize())
         (care_parse.patients[name.lower()]).append(symptom)
 
+
 def list_symptoms(name):
     if not name.lower() in care_parse.patients:
         print("Patient " + name.capitalize() + "does not exist.")
@@ -38,8 +41,10 @@ def list_symptoms(name):
         for p in care_parse.patients[name.lower()]:
             print(p + "\n")
 
+
 def diagnose_patient(name):
-    print("you are diagnosing a patient")
+
+    print("\nYou are diagnosing a patient")
     if not name.lower() in care_parse.patients:
         print("Patient " + name.capitalize() + "does not exist.")
     else:
@@ -53,16 +58,18 @@ def diagnose_patient(name):
 
             for index in range(len(flu)):
                 if (p == flu[index]):
-                    matchF =matchF+1
+                    matchF = matchF+1
 
-        if(matchC >= 2):
+        if(matchC == 3 and matchF != 4):
             print( "Patient could have a cold")
-        elif(matchF >= 2):
+        elif(matchF == 4):
             print("Patient could have the flu")
         else:
             print("could not diagnose patient's condition with current data")
 
         temp = care_parse.patients[name.lower()]
+
+
 def display_help():
     print("Hello!"
           "\nCARE is an experimental Health Care Protocol Language."

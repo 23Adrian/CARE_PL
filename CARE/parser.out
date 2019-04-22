@@ -18,16 +18,16 @@ Rule 6     function -> ID
 Rule 7     create_patient -> ID PERIOD LP RP
 Rule 8     add_symptoms -> ID PERIOD ID LP ID RP
 Rule 9     list_symptoms -> ID PERIOD ID LP RP
-Rule 10    diagnose_patient -> ID PERIOD ID LP RP
+Rule 10    diagnose_patient -> ID PERIOD ID
 
 Terminals, with rules where they appear
 
 FALSE                : 
 ID                   : 6 7 8 8 8 9 9 10 10
-LP                   : 7 8 9 10
+LP                   : 7 8 9
 PATIENT              : 
 PERIOD               : 7 8 9 10
-RP                   : 7 8 9 10
+RP                   : 7 8 9
 TRUE                 : 
 error                : 
 
@@ -54,7 +54,7 @@ state 0
     (7) create_patient -> . ID PERIOD LP RP
     (8) add_symptoms -> . ID PERIOD ID LP ID RP
     (9) list_symptoms -> . ID PERIOD ID LP RP
-    (10) diagnose_patient -> . ID PERIOD ID LP RP
+    (10) diagnose_patient -> . ID PERIOD ID
 
     ID              shift and go to state 7
 
@@ -112,7 +112,7 @@ state 7
     (7) create_patient -> ID . PERIOD LP RP
     (8) add_symptoms -> ID . PERIOD ID LP ID RP
     (9) list_symptoms -> ID . PERIOD ID LP RP
-    (10) diagnose_patient -> ID . PERIOD ID LP RP
+    (10) diagnose_patient -> ID . PERIOD ID
 
     $end            reduce using rule 6 (function -> ID .)
     PERIOD          shift and go to state 8
@@ -123,7 +123,7 @@ state 8
     (7) create_patient -> ID PERIOD . LP RP
     (8) add_symptoms -> ID PERIOD . ID LP ID RP
     (9) list_symptoms -> ID PERIOD . ID LP RP
-    (10) diagnose_patient -> ID PERIOD . ID LP RP
+    (10) diagnose_patient -> ID PERIOD . ID
 
     LP              shift and go to state 10
     ID              shift and go to state 9
@@ -133,9 +133,10 @@ state 9
 
     (8) add_symptoms -> ID PERIOD ID . LP ID RP
     (9) list_symptoms -> ID PERIOD ID . LP RP
-    (10) diagnose_patient -> ID PERIOD ID . LP RP
+    (10) diagnose_patient -> ID PERIOD ID .
 
     LP              shift and go to state 11
+    $end            reduce using rule 10 (diagnose_patient -> ID PERIOD ID .)
 
 
 state 10
@@ -149,7 +150,6 @@ state 11
 
     (8) add_symptoms -> ID PERIOD ID LP . ID RP
     (9) list_symptoms -> ID PERIOD ID LP . RP
-    (10) diagnose_patient -> ID PERIOD ID LP . RP
 
     ID              shift and go to state 13
     RP              shift and go to state 14
@@ -172,12 +172,8 @@ state 13
 state 14
 
     (9) list_symptoms -> ID PERIOD ID LP RP .
-    (10) diagnose_patient -> ID PERIOD ID LP RP .
 
-  ! reduce/reduce conflict for $end resolved using rule 9 (list_symptoms -> ID PERIOD ID LP RP .)
     $end            reduce using rule 9 (list_symptoms -> ID PERIOD ID LP RP .)
-
-  ! $end            [ reduce using rule 10 (diagnose_patient -> ID PERIOD ID LP RP .) ]
 
 
 state 15
@@ -186,9 +182,3 @@ state 15
 
     $end            reduce using rule 8 (add_symptoms -> ID PERIOD ID LP ID RP .)
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: reduce/reduce conflict in state 14 resolved using rule (list_symptoms -> ID PERIOD ID LP RP)
-WARNING: rejected rule (diagnose_patient -> ID PERIOD ID LP RP) in state 14
-WARNING: Rule (diagnose_patient -> ID PERIOD ID LP RP) is never reduced
