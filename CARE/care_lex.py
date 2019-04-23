@@ -2,9 +2,12 @@ import ply.lex as lex
 
 reserved = {
 
-    'Patient':'PATIENT',
-    'True': 'TRUE',
-    'False': 'FALSE'
+    'remove': 'REMOVE',
+    'has': 'HAS',
+    'list': 'LIST',
+    'diagnose': 'DIAGNOSE',
+    'create': 'CREATE',
+    'define': 'DEFINE',
 
 }
 
@@ -29,6 +32,18 @@ def t_error(t):
     print("Error")
     print(t)
     t.lexer.skip(1)
+
+t_REMOVE = r'remove'
+
+t_DEFINE = r'define'
+
+t_HAS = r'has'
+
+t_LIST = r'list'
+
+t_DIAGNOSE = r'diagnose'
+
+t_CREATE = r'create'
 
 t_LP = r'\('
 

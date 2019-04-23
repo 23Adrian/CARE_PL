@@ -1,53 +1,53 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    FALSE
-    PATIENT
-    TRUE
-
 Grammar
 
 Rule 0     S' -> program
 Rule 1     program -> function
 Rule 2     program -> create_patient
-Rule 3     program -> add_symptoms
-Rule 4     program -> list_symptoms
-Rule 5     program -> diagnose_patient
-Rule 6     program -> specific_diagnose
-Rule 7     program -> create_illness
-Rule 8     program -> add_conditions
-Rule 9     function -> ID
-Rule 10    create_patient -> ID PERIOD LP RP
-Rule 11    create_illness -> ID LP ID RP PERIOD ID LP RP
-Rule 12    add_conditions -> ID LP ID RP PERIOD ID LP ID RP
-Rule 13    add_symptoms -> ID PERIOD ID LP ID RP
-Rule 14    list_symptoms -> ID PERIOD ID LP RP
-Rule 15    diagnose_patient -> ID PERIOD ID
-Rule 16    specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP
+Rule 3     program -> remove_patient
+Rule 4     program -> add_symptoms
+Rule 5     program -> list_symptoms
+Rule 6     program -> diagnose_patient
+Rule 7     program -> specific_diagnose
+Rule 8     program -> create_illness
+Rule 9     program -> add_conditions
+Rule 10    function -> ID
+Rule 11    create_patient -> ID PERIOD CREATE
+Rule 12    remove_patient -> ID PERIOD REMOVE
+Rule 13    create_illness -> DEFINE PERIOD LP ID RP
+Rule 14    add_conditions -> ID LP ID RP PERIOD ID LP ID RP
+Rule 15    add_symptoms -> ID PERIOD HAS LP ID RP
+Rule 16    list_symptoms -> ID PERIOD LIST
+Rule 17    diagnose_patient -> ID PERIOD DIAGNOSE
+Rule 18    specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP
 
 Terminals, with rules where they appear
 
-FALSE                : 
-ID                   : 9 10 11 11 11 12 12 12 12 13 13 13 14 14 15 15 16 16 16 16
-LP                   : 10 11 11 12 12 13 14 16 16
-PATIENT              : 
-PERIOD               : 10 11 12 13 14 15 16 16
-RP                   : 10 11 11 12 12 13 14 16 16
-TRUE                 : 
+CREATE               : 11
+DEFINE               : 13
+DIAGNOSE             : 17
+HAS                  : 15
+ID                   : 10 11 12 13 14 14 14 14 15 15 16 17 18 18 18 18
+LIST                 : 16
+LP                   : 13 14 14 15 18 18
+PERIOD               : 11 12 13 14 15 16 17 18 18
+REMOVE               : 12
+RP                   : 13 14 14 15 18 18
 error                : 
 
 Nonterminals, with rules where they appear
 
-add_conditions       : 8
-add_symptoms         : 3
-create_illness       : 7
+add_conditions       : 9
+add_symptoms         : 4
+create_illness       : 8
 create_patient       : 2
-diagnose_patient     : 5
+diagnose_patient     : 6
 function             : 1
-list_symptoms        : 4
+list_symptoms        : 5
 program              : 0
-specific_diagnose    : 6
+remove_patient       : 3
+specific_diagnose    : 7
 
 Parsing method: LALR
 
@@ -56,32 +56,36 @@ state 0
     (0) S' -> . program
     (1) program -> . function
     (2) program -> . create_patient
-    (3) program -> . add_symptoms
-    (4) program -> . list_symptoms
-    (5) program -> . diagnose_patient
-    (6) program -> . specific_diagnose
-    (7) program -> . create_illness
-    (8) program -> . add_conditions
-    (9) function -> . ID
-    (10) create_patient -> . ID PERIOD LP RP
-    (13) add_symptoms -> . ID PERIOD ID LP ID RP
-    (14) list_symptoms -> . ID PERIOD ID LP RP
-    (15) diagnose_patient -> . ID PERIOD ID
-    (16) specific_diagnose -> . ID PERIOD ID LP ID RP PERIOD ID LP RP
-    (11) create_illness -> . ID LP ID RP PERIOD ID LP RP
-    (12) add_conditions -> . ID LP ID RP PERIOD ID LP ID RP
+    (3) program -> . remove_patient
+    (4) program -> . add_symptoms
+    (5) program -> . list_symptoms
+    (6) program -> . diagnose_patient
+    (7) program -> . specific_diagnose
+    (8) program -> . create_illness
+    (9) program -> . add_conditions
+    (10) function -> . ID
+    (11) create_patient -> . ID PERIOD CREATE
+    (12) remove_patient -> . ID PERIOD REMOVE
+    (15) add_symptoms -> . ID PERIOD HAS LP ID RP
+    (16) list_symptoms -> . ID PERIOD LIST
+    (17) diagnose_patient -> . ID PERIOD DIAGNOSE
+    (18) specific_diagnose -> . ID PERIOD ID LP ID RP PERIOD ID LP RP
+    (13) create_illness -> . DEFINE PERIOD LP ID RP
+    (14) add_conditions -> . ID LP ID RP PERIOD ID LP ID RP
 
-    ID              shift and go to state 10
+    ID              shift and go to state 11
+    DEFINE          shift and go to state 12
 
     program                        shift and go to state 1
     function                       shift and go to state 2
     create_patient                 shift and go to state 3
-    add_symptoms                   shift and go to state 4
-    list_symptoms                  shift and go to state 5
-    diagnose_patient               shift and go to state 6
-    specific_diagnose              shift and go to state 7
-    create_illness                 shift and go to state 8
-    add_conditions                 shift and go to state 9
+    remove_patient                 shift and go to state 4
+    add_symptoms                   shift and go to state 5
+    list_symptoms                  shift and go to state 6
+    diagnose_patient               shift and go to state 7
+    specific_diagnose              shift and go to state 8
+    create_illness                 shift and go to state 9
+    add_conditions                 shift and go to state 10
 
 state 1
 
@@ -105,227 +109,285 @@ state 3
 
 state 4
 
-    (3) program -> add_symptoms .
+    (3) program -> remove_patient .
 
-    $end            reduce using rule 3 (program -> add_symptoms .)
+    $end            reduce using rule 3 (program -> remove_patient .)
 
 
 state 5
 
-    (4) program -> list_symptoms .
+    (4) program -> add_symptoms .
 
-    $end            reduce using rule 4 (program -> list_symptoms .)
+    $end            reduce using rule 4 (program -> add_symptoms .)
 
 
 state 6
 
-    (5) program -> diagnose_patient .
+    (5) program -> list_symptoms .
 
-    $end            reduce using rule 5 (program -> diagnose_patient .)
+    $end            reduce using rule 5 (program -> list_symptoms .)
 
 
 state 7
 
-    (6) program -> specific_diagnose .
+    (6) program -> diagnose_patient .
 
-    $end            reduce using rule 6 (program -> specific_diagnose .)
+    $end            reduce using rule 6 (program -> diagnose_patient .)
 
 
 state 8
 
-    (7) program -> create_illness .
+    (7) program -> specific_diagnose .
 
-    $end            reduce using rule 7 (program -> create_illness .)
+    $end            reduce using rule 7 (program -> specific_diagnose .)
 
 
 state 9
 
-    (8) program -> add_conditions .
+    (8) program -> create_illness .
 
-    $end            reduce using rule 8 (program -> add_conditions .)
+    $end            reduce using rule 8 (program -> create_illness .)
 
 
 state 10
 
-    (9) function -> ID .
-    (10) create_patient -> ID . PERIOD LP RP
-    (13) add_symptoms -> ID . PERIOD ID LP ID RP
-    (14) list_symptoms -> ID . PERIOD ID LP RP
-    (15) diagnose_patient -> ID . PERIOD ID
-    (16) specific_diagnose -> ID . PERIOD ID LP ID RP PERIOD ID LP RP
-    (11) create_illness -> ID . LP ID RP PERIOD ID LP RP
-    (12) add_conditions -> ID . LP ID RP PERIOD ID LP ID RP
+    (9) program -> add_conditions .
 
-    $end            reduce using rule 9 (function -> ID .)
-    PERIOD          shift and go to state 11
-    LP              shift and go to state 12
+    $end            reduce using rule 9 (program -> add_conditions .)
 
 
 state 11
 
-    (10) create_patient -> ID PERIOD . LP RP
-    (13) add_symptoms -> ID PERIOD . ID LP ID RP
-    (14) list_symptoms -> ID PERIOD . ID LP RP
-    (15) diagnose_patient -> ID PERIOD . ID
-    (16) specific_diagnose -> ID PERIOD . ID LP ID RP PERIOD ID LP RP
+    (10) function -> ID .
+    (11) create_patient -> ID . PERIOD CREATE
+    (12) remove_patient -> ID . PERIOD REMOVE
+    (15) add_symptoms -> ID . PERIOD HAS LP ID RP
+    (16) list_symptoms -> ID . PERIOD LIST
+    (17) diagnose_patient -> ID . PERIOD DIAGNOSE
+    (18) specific_diagnose -> ID . PERIOD ID LP ID RP PERIOD ID LP RP
+    (14) add_conditions -> ID . LP ID RP PERIOD ID LP ID RP
 
+    $end            reduce using rule 10 (function -> ID .)
+    PERIOD          shift and go to state 13
     LP              shift and go to state 14
-    ID              shift and go to state 13
 
 
 state 12
 
-    (11) create_illness -> ID LP . ID RP PERIOD ID LP RP
-    (12) add_conditions -> ID LP . ID RP PERIOD ID LP ID RP
+    (13) create_illness -> DEFINE . PERIOD LP ID RP
 
-    ID              shift and go to state 15
+    PERIOD          shift and go to state 15
 
 
 state 13
 
-    (13) add_symptoms -> ID PERIOD ID . LP ID RP
-    (14) list_symptoms -> ID PERIOD ID . LP RP
-    (15) diagnose_patient -> ID PERIOD ID .
-    (16) specific_diagnose -> ID PERIOD ID . LP ID RP PERIOD ID LP RP
+    (11) create_patient -> ID PERIOD . CREATE
+    (12) remove_patient -> ID PERIOD . REMOVE
+    (15) add_symptoms -> ID PERIOD . HAS LP ID RP
+    (16) list_symptoms -> ID PERIOD . LIST
+    (17) diagnose_patient -> ID PERIOD . DIAGNOSE
+    (18) specific_diagnose -> ID PERIOD . ID LP ID RP PERIOD ID LP RP
 
-    LP              shift and go to state 16
-    $end            reduce using rule 15 (diagnose_patient -> ID PERIOD ID .)
+    CREATE          shift and go to state 17
+    REMOVE          shift and go to state 18
+    HAS             shift and go to state 19
+    LIST            shift and go to state 20
+    DIAGNOSE        shift and go to state 21
+    ID              shift and go to state 16
 
 
 state 14
 
-    (10) create_patient -> ID PERIOD LP . RP
+    (14) add_conditions -> ID LP . ID RP PERIOD ID LP ID RP
 
-    RP              shift and go to state 17
+    ID              shift and go to state 22
 
 
 state 15
 
-    (11) create_illness -> ID LP ID . RP PERIOD ID LP RP
-    (12) add_conditions -> ID LP ID . RP PERIOD ID LP ID RP
+    (13) create_illness -> DEFINE PERIOD . LP ID RP
 
-    RP              shift and go to state 18
+    LP              shift and go to state 23
 
 
 state 16
 
-    (13) add_symptoms -> ID PERIOD ID LP . ID RP
-    (14) list_symptoms -> ID PERIOD ID LP . RP
-    (16) specific_diagnose -> ID PERIOD ID LP . ID RP PERIOD ID LP RP
+    (18) specific_diagnose -> ID PERIOD ID . LP ID RP PERIOD ID LP RP
 
-    ID              shift and go to state 19
-    RP              shift and go to state 20
+    LP              shift and go to state 24
 
 
 state 17
 
-    (10) create_patient -> ID PERIOD LP RP .
+    (11) create_patient -> ID PERIOD CREATE .
 
-    $end            reduce using rule 10 (create_patient -> ID PERIOD LP RP .)
+    $end            reduce using rule 11 (create_patient -> ID PERIOD CREATE .)
 
 
 state 18
 
-    (11) create_illness -> ID LP ID RP . PERIOD ID LP RP
-    (12) add_conditions -> ID LP ID RP . PERIOD ID LP ID RP
+    (12) remove_patient -> ID PERIOD REMOVE .
 
-    PERIOD          shift and go to state 21
+    $end            reduce using rule 12 (remove_patient -> ID PERIOD REMOVE .)
 
 
 state 19
 
-    (13) add_symptoms -> ID PERIOD ID LP ID . RP
-    (16) specific_diagnose -> ID PERIOD ID LP ID . RP PERIOD ID LP RP
-
-    RP              shift and go to state 22
-
-
-state 20
-
-    (14) list_symptoms -> ID PERIOD ID LP RP .
-
-    $end            reduce using rule 14 (list_symptoms -> ID PERIOD ID LP RP .)
-
-
-state 21
-
-    (11) create_illness -> ID LP ID RP PERIOD . ID LP RP
-    (12) add_conditions -> ID LP ID RP PERIOD . ID LP ID RP
-
-    ID              shift and go to state 23
-
-
-state 22
-
-    (13) add_symptoms -> ID PERIOD ID LP ID RP .
-    (16) specific_diagnose -> ID PERIOD ID LP ID RP . PERIOD ID LP RP
-
-    $end            reduce using rule 13 (add_symptoms -> ID PERIOD ID LP ID RP .)
-    PERIOD          shift and go to state 24
-
-
-state 23
-
-    (11) create_illness -> ID LP ID RP PERIOD ID . LP RP
-    (12) add_conditions -> ID LP ID RP PERIOD ID . LP ID RP
+    (15) add_symptoms -> ID PERIOD HAS . LP ID RP
 
     LP              shift and go to state 25
 
 
+state 20
+
+    (16) list_symptoms -> ID PERIOD LIST .
+
+    $end            reduce using rule 16 (list_symptoms -> ID PERIOD LIST .)
+
+
+state 21
+
+    (17) diagnose_patient -> ID PERIOD DIAGNOSE .
+
+    $end            reduce using rule 17 (diagnose_patient -> ID PERIOD DIAGNOSE .)
+
+
+state 22
+
+    (14) add_conditions -> ID LP ID . RP PERIOD ID LP ID RP
+
+    RP              shift and go to state 26
+
+
+state 23
+
+    (13) create_illness -> DEFINE PERIOD LP . ID RP
+
+    ID              shift and go to state 27
+
+
 state 24
 
-    (16) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD . ID LP RP
+    (18) specific_diagnose -> ID PERIOD ID LP . ID RP PERIOD ID LP RP
 
-    ID              shift and go to state 26
+    ID              shift and go to state 28
 
 
 state 25
 
-    (11) create_illness -> ID LP ID RP PERIOD ID LP . RP
-    (12) add_conditions -> ID LP ID RP PERIOD ID LP . ID RP
+    (15) add_symptoms -> ID PERIOD HAS LP . ID RP
 
-    RP              shift and go to state 28
-    ID              shift and go to state 27
+    ID              shift and go to state 29
 
 
 state 26
 
-    (16) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID . LP RP
+    (14) add_conditions -> ID LP ID RP . PERIOD ID LP ID RP
 
-    LP              shift and go to state 29
+    PERIOD          shift and go to state 30
 
 
 state 27
 
-    (12) add_conditions -> ID LP ID RP PERIOD ID LP ID . RP
-
-    RP              shift and go to state 30
-
-
-state 28
-
-    (11) create_illness -> ID LP ID RP PERIOD ID LP RP .
-
-    $end            reduce using rule 11 (create_illness -> ID LP ID RP PERIOD ID LP RP .)
-
-
-state 29
-
-    (16) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP . RP
+    (13) create_illness -> DEFINE PERIOD LP ID . RP
 
     RP              shift and go to state 31
 
 
+state 28
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID . RP PERIOD ID LP RP
+
+    RP              shift and go to state 32
+
+
+state 29
+
+    (15) add_symptoms -> ID PERIOD HAS LP ID . RP
+
+    RP              shift and go to state 33
+
+
 state 30
 
-    (12) add_conditions -> ID LP ID RP PERIOD ID LP ID RP .
+    (14) add_conditions -> ID LP ID RP PERIOD . ID LP ID RP
 
-    $end            reduce using rule 12 (add_conditions -> ID LP ID RP PERIOD ID LP ID RP .)
+    ID              shift and go to state 34
 
 
 state 31
 
-    (16) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP .
+    (13) create_illness -> DEFINE PERIOD LP ID RP .
 
-    $end            reduce using rule 16 (specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP .)
+    $end            reduce using rule 13 (create_illness -> DEFINE PERIOD LP ID RP .)
+
+
+state 32
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID RP . PERIOD ID LP RP
+
+    PERIOD          shift and go to state 35
+
+
+state 33
+
+    (15) add_symptoms -> ID PERIOD HAS LP ID RP .
+
+    $end            reduce using rule 15 (add_symptoms -> ID PERIOD HAS LP ID RP .)
+
+
+state 34
+
+    (14) add_conditions -> ID LP ID RP PERIOD ID . LP ID RP
+
+    LP              shift and go to state 36
+
+
+state 35
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD . ID LP RP
+
+    ID              shift and go to state 37
+
+
+state 36
+
+    (14) add_conditions -> ID LP ID RP PERIOD ID LP . ID RP
+
+    ID              shift and go to state 38
+
+
+state 37
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID . LP RP
+
+    LP              shift and go to state 39
+
+
+state 38
+
+    (14) add_conditions -> ID LP ID RP PERIOD ID LP ID . RP
+
+    RP              shift and go to state 40
+
+
+state 39
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP . RP
+
+    RP              shift and go to state 41
+
+
+state 40
+
+    (14) add_conditions -> ID LP ID RP PERIOD ID LP ID RP .
+
+    $end            reduce using rule 14 (add_conditions -> ID LP ID RP PERIOD ID LP ID RP .)
+
+
+state 41
+
+    (18) specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP .
+
+    $end            reduce using rule 18 (specific_diagnose -> ID PERIOD ID LP ID RP PERIOD ID LP RP .)
 
