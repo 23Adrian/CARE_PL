@@ -28,6 +28,8 @@ def create_illness(name):
     else:
         print("Added illness: " + name.capitalize())
         care_parse.illness[name.lower()] = []
+        definitions.append(name)
+
 
 def add_conditions(name, symptom):
     if not name.lower() in care_parse.illness:
@@ -40,6 +42,24 @@ def add_conditions(name, symptom):
         (care_parse.illness[name.lower()]).append(symptom.lower())
         print("Adding symptom -> " + symptom + " to Illness definition " + name.capitalize())
 
+def find_matches(name , illness):
+    if not name.lower() in care_parse.patients:
+        print("Patient " + name.capitalize() + "does not exist.")
+    else:
+        match = 0                                               # not optimal method
+                                                                # see to find a map funtion for better time
+
+        for p in care_parse.patients[name.lower()]:
+            for d in (care_parse.illness[illness.lower()]):
+                if (p == d):
+                    match = match + 1
+        match = (match/len(care_parse.illness[illness.lower()])*100)
+        print("Patient has " + str(match) + "% of the symptoms of a " + illness)
+        if (match >= 60):
+            print("Patient could have a " + illness)
+        else:
+            print("Current data shows that the patient :")
+            print(name.capitalize() + "does not have enough symptoms to diagnose as having" + illness.capitalize())
 
 
 def add_symptom(name, symptom):
