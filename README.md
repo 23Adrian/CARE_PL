@@ -31,7 +31,7 @@ To define your own illnesses
 Ex:
 illness(flu).add()
 
-To add the simptom just write it inside the add
+To add the symptom just write it inside the add
 
 Ex:
 illness(flu).add(fever)
