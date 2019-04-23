@@ -22,6 +22,26 @@ def create_patient(name):
         care_parse.patients[name.lower()] = []
 
 
+def create_illness(name):
+    if name.lower in care_parse.illness:
+        print("Illness is all ready created")
+    else:
+        print("Added illness: " + name.capitalize())
+        care_parse.illness[name.lower()] = []
+
+def add_conditions(name, symptom):
+    if not name.lower() in care_parse.illness:
+        print("Adding illness with symptom")
+        create_illness(name)
+        care_parse.illness[name.lower()].append(symptom.lower())
+        print("Condition " + symptom.lower() + "added to" + name.capitalize())
+
+    else:
+        (care_parse.illness[name.lower()]).append(symptom.lower())
+        print("Adding symptom -> " + symptom + " to Illness definition " + name.capitalize())
+
+
+
 def add_symptom(name, symptom):
     if not name.lower() in care_parse.patients:
         print("Patient not in register. Creating patient and adding symptom... \n")
@@ -60,12 +80,16 @@ def diagnose_patient(name):
                 if (p == flu[index]):
                     matchF = matchF+1
 
-        if(matchC == 3 and matchF != 4):
+        matchF = (matchF/len(flu))*100
+        matchC = (matchC/len(cold))*100
+        if(matchC >= 60):
+            print("Patient has " + matchC + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
-        elif(matchF == 4):
+        elif(matchF >= 60):
+            print("Patient has " + matchF + "% of the symptoms of a cold.")
             print("Patient could have the flu")
         else:
-            print("could not diagnose patient's condition with current data")
+            print("Could not diagnose patient's condition with current data")
 
         temp = care_parse.patients[name.lower()]
 
