@@ -1,22 +1,23 @@
 # CARE_PL4
 
-Care is a prototype Health Care protocal language
+Care is a prototype Health Care protocol language
 
-To Create a patient simply write The Patient's name
+To Create a patient simply write the patient's name
 followed by .()
 
-ex Angel.()
+Ex: 
+Angel.()
 
-To add a symptom:
-    use the patient's name
-    then use .has() with symptom
+To add a symptom use the patient's name
+then use .has() with symptom
 
-ex:
+Ex:
 Angel.has(fever)
 
-To list a patient's sintom's use list()
-    ex:
-    Angel.list()
+To list a patient's symptoms use list()
+
+Ex:
+Angel.list()
 
 To auto diagnose patient
     Simply write : Patient_Name.diagnose
@@ -24,12 +25,15 @@ To auto diagnose patient
 Ex:
 Angel.diagnose
 
-to define your own illnesses
+To define your own illnesses
     Simply write : illness(ILLNESS_NAME).add()
     
-to add the simptom just write it inside the add
-
+Ex:
 illness(flu).add()
-illness(flu0.add(fever)
+
+To add the symptom just write it inside the add
+
+Ex:
+illness(flu).add(fever)
 
 
