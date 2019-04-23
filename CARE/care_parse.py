@@ -30,7 +30,7 @@ def p_function(p):
 
 def p_create_patient(p):
     '''create_patient : ID PERIOD LP RP'''
-    # Patient_name.() example of syntax
+    # Patient_name.()                           example of syntax
     if len(p) == 5:
         function_runner.create_patient(str(p[1]))
 

@@ -28,7 +28,6 @@ def create_illness(name):
     else:
         print("Added illness: " + name.capitalize())
         care_parse.illness[name.lower()] = []
-        definitions.append(name)
 
 
 def add_conditions(name, symptom):
@@ -114,7 +113,7 @@ def diagnose_patient(name):
             print("Patient has " + str(matchC) + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
         elif(matchF >= 60):
-            print("Patient has " + str(matchF) + "% of the symptoms of a cold.")
+            print("Patient has " + str(matchF) + "% of the symptoms of a flu.")
             print("Patient could have the flu")
         else:
             print("Could not diagnose patient's condition with current data")
@@ -123,13 +122,27 @@ def diagnose_patient(name):
 
 
 def display_help():
-    print("Hello!"
-          "\nCARE is an experimental Health Care Protocol Language."
-          "\nTo create a patient: PATIENT_NAME.()"
-          "\nTo add symptoms to a patient: PATIENT_NAME.has()"
-          "\nTo view patient symptoms: PATIENT_NAME.list()"
-          "\nImportant: Only enter 1 symptom at a time."
-          "\nImportant: Symptoms must always be added in lowercase")
+    print('''Care is a prototype Health Care protocol language
+
+    To create a patient simply write the patient's name followed by .()
+
+    ex Angel.()
+
+    To add a symptom: use the patient's name then use .has() with symptom
+
+    ex: Angel.has(fever)
+
+    To list a patient's symptom's use .list() 
+    
+    ex: Angel.list()
+
+    To auto diagnose patient simply write : Patient_Name.diagnose
+
+    ex: Angel.diagnose
+
+    to define your own illnesses simply write : illness(ILLNESS_NAME).add()
+
+    to add the symptom just write it inside the add : illness(flu).add() illness(flu0.add(fever)''')
 
 
 def exit_program():
