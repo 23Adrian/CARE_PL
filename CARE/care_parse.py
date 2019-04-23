@@ -4,13 +4,16 @@ from CARE import care_lex, function_runner
 
 tokens = care_lex.tokens
 patients = {}
+illness = {}
 
 def p_program(t):
     ''' program : function
                 | create_patient
                 | add_symptoms
                 | list_symptoms
-                | diagnose_patient '''
+                | diagnose_patient 
+                | create_illness
+                | add_conditions'''
 
 def p_function(p):
     '''
@@ -24,8 +27,21 @@ def p_function(p):
 
 def p_create_patient(p):
     '''create_patient : ID PERIOD LP RP'''
+    # Patient_name.()
     if len(p) == 5:
         function_runner.create_patient(str(p[1]))
+
+def p_create_illness(p):
+    '''create_illness : ID LP ID RP PERIOD ID LP RP'''
+    #illness(flu).add()
+    if len(p) == 9 and p[6] == "add":
+        function_runner.create_illness(str(p[3]))
+
+def p_add_conditions(p):
+    '''add_conditions : ID LP ID RP PERIOD ID LP ID RP'''
+    #illness(flu).add(fever)
+    if len(p) == 10 and p[6] == "add":
+        function_runner.add_conditions(str(p[3]), str(p[8]))
 
 def p_add_symptoms(p):
     ''' add_symptoms : ID PERIOD ID LP ID RP '''
