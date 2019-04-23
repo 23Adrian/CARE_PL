@@ -1,8 +1,8 @@
 import sys
 from CARE import care_parse
 
-cold = ["fever", "congestion", "coughing"]
-flu = ["fever", "congestion", "coughing", "bodyache"]
+cold = ["sneezing", "sore throat", "congestion", "coughing"]
+flu = ["fever", "aches", "chills", "fatigue", "coughing", "headache"]
 
 
 def func_parse(func):
@@ -61,6 +61,14 @@ def list_symptoms(name):
         for p in care_parse.patients[name.lower()]:
             print(p + "\n")
 
+def list_illness_conditions(name):
+    if not name.lower() in care_parse.illness:
+        print("Illness " + name.capitalize() + "does not exist.")
+    else:
+        print("Illness " + name.capitalize() + " has: \n")
+        for p in care_parse.patients[name.lower()]:
+            print(p + "\n")
+
 
 def diagnose_patient(name):
 
@@ -83,10 +91,10 @@ def diagnose_patient(name):
         matchF = (matchF/len(flu))*100
         matchC = (matchC/len(cold))*100
         if(matchC >= 60):
-            print("Patient has " + matchC + "% of the symptoms of a cold.")
+            print("Patient has " + str(matchC) + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
         elif(matchF >= 60):
-            print("Patient has " + matchF + "% of the symptoms of a cold.")
+            print("Patient has " + str(matchF) + "% of the symptoms of a cold.")
             print("Patient could have the flu")
         else:
             print("Could not diagnose patient's condition with current data")
