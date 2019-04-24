@@ -6,50 +6,55 @@ tokens = care_lex.tokens
 patients = {}
 illness = {}
 
+
+
 def p_program(t):
     ''' program : function
                 | create_patient
-                | remove_patient
                 | add_symptoms
                 | list_symptoms
                 | diagnose_patient 
                 | specific_diagnose
-                | create_illness
                 | add_conditions
+                | create_illness
+                | remove_illness
+                | remove_patient
+                | queue
+                | attend
                 
                 '''
+
+def p_create_illness(p):
+    ''' create_illness : AILMENT LP ID RP PERIOD CREATE LP RP'''
+    #ailment(flu).create()                         example of syntax
+    if len(p) == 9 and str(p[6]) == "create":
+        function_runner.create_illness(str(p[3]))
+def p_remove_illness(p):
+    ''' remove_illness : AILMENT LP ID RP PERIOD REMOVE LP RP'''
+    # ailment(flu).remove()
+    if len(p) == 9 and str(p[1]) == "ailment" and str(p[6]) == "remove":
+        function_runner.remove_illness(str(p[3]))
 
 def p_function(p):
     '''
     function : ID
     '''
-
-    if p[1] == "HELP" or p[1] == "help" or p[1] == "Help":
+    if str(p[1]) == "HELP" or p[1] == "help" or str(p[1]) == "Help":
         function_runner.display_help()
     elif p[1] == "EXIT" or p[1] == "exit" or p[1] == "Exit":
         function_runner.exit_program()
 
 def p_create_patient(p):
-    ''' create_patient : ID PERIOD CREATE '''
-    # Angel.create                         example of syntax
-    if len(p) == 4 and str(p[3]) == "create":
+    '''create_patient : ID PERIOD CREATE LP RP'''
+    # Patient_name.create() example of syntax
+    if len(p) == 6:
         function_runner.create_patient(str(p[1]))
 
-def p_remove_patient(p):
-    '''remove_patient : ID PERIOD REMOVE'''
-    # Angel.remove
-    if len(p) == 4 and str(p[3]) == "remove":
-        function_runner.remove_patient(str(p[1]))
 
-def p_create_illness(p):
-    ''' create_illness : DEFINE PERIOD LP ID RP '''
-    # define.(norovirus)                        example of syntax
-    if len(p) == 6 and str(p[1]) == "define":
-        function_runner.create_illness(str(p[4]))
 
 def p_add_conditions(p):
-    ''' add_conditions : ID LP ID RP PERIOD ID LP ID RP '''
-    #illness(flu).add(fever)                    example of syntax
+    '''add_conditions : AILMENT LP ID RP PERIOD ADD LP ID RP'''
+    #ailment(flu).add(fever)                    example of syntax
     if len(p) == 10 and str(p[6]) == "add":
         function_runner.add_conditions(str(p[3]), str(p[8]))
 
@@ -59,11 +64,18 @@ def p_add_symptoms(p):
     if len(p) == 7 and str(p[3]) == "has":
         function_runner.add_symptom(str(p[1]), str(p[5]))
 
+
 def p_list_symptoms(p):
-    ''' list_symptoms : ID PERIOD LIST '''
-    #angel.list                               example of syntax
-    if len(p) == 4 and str(p[3]) == "list":
+    ''' list_symptoms : ID PERIOD LIST LP RP'''
+    #angel.list()                               example of syntax
+    if len(p) == 6 and str(p[3]) == "list":
         function_runner.list_symptoms(str(p[1]))
+
+def p_remove_patient(p):
+    ''' remove_patient : ID PERIOD REMOVE LP RP'''
+
+    if str(p[3]) == "remove" and len(p) == 6:
+        function_runner.remove_patients(str(p[3]))
 
 
 #def p_list_illness_conditions(p):
@@ -78,10 +90,23 @@ def p_diagnose_patient(p):
         function_runner.diagnose_patient(str(p[1]))
 
 def p_specific_diagnose(p):
-    ''' specific_diagnose : ID PERIOD ID LP ID RP PERIOD ID LP RP'''
-    # ANGEL.ILLNESS(FLU).diagnose()             example of syntax
+    ''' specific_diagnose : ID PERIOD AILMENT LP ID RP PERIOD DIAGNOSE LP RP'''
+    # ANGEL.AILMENT(FLU).diagnose()             example of syntax
     if len(p) == 11:
         function_runner.find_matches(str(p[1]),str(p[5]))
+
+
+def p_queue(p):
+    ''' queue : ID LP ID RP'''
+    # queue(angel)
+    if len(p) == 5 and str(p[1]) == "queue":
+        function_runner.patient_Queue(str(p[3]))
+
+def p_attend(p):
+    ''' attend : ID LP RP'''
+    # attend()
+    if len(p) == 4 and str(p[1]) == "attend":
+        function_runner.patient_Dequeue()
 
 
 def p_error(t):
