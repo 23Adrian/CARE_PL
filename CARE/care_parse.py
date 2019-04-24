@@ -75,7 +75,7 @@ def p_remove_patient(p):
     ''' remove_patient : ID PERIOD REMOVE LP RP'''
 
     if str(p[3]) == "remove" and len(p) == 6:
-        function_runner.remove_patients(str(p[3]))
+        function_runner.remove_patients(str(p[1]))
 
 
 #def p_list_illness_conditions(p):
