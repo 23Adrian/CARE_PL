@@ -6,6 +6,8 @@ from CARE import care_parse
 cold = ["sneezing", "sore throat", "congestion", "coughing"]
 flu = ["fever", "aches", "chills", "fatigue", "coughing", "headache"]
 definitions = []
+
+
 p = queue.Queue(maxsize=0)
 
 
@@ -27,11 +29,16 @@ def create_patient(name):
 
 def patient_Queue(name):
     if not name.lower() in care_parse.patients:
-        create_illness(name)
+        print("Patient " + name.capitalize() + " does not exist.")
+        create_patient(name)
+        print("Patient is now in a waiting queue")
+        p.put(str(name))
+        print("There are " + str(p.qsize() - 1) + " persons before him/her.")
     else:
         print("Patient is now in a waiting queue")
         p.put(str(name))
- #       p.put(care_parse.patients[name.lower()])
+        print("There are " + str(p.qsize() - 1) + " persons before him/her.")
+
 
 def patient_Dequeue():
     if p.empty():
@@ -40,8 +47,6 @@ def patient_Dequeue():
     else:
         person = p.get()
         print("Patient "+ str(person).capitalize() + " has been attended")
-
-
 
 
 def create_illness(name):
@@ -65,7 +70,6 @@ def remove_illness(name):
         care_parse.illness.pop(name)
 
 
-
 def add_conditions(name, symptom):
     if not name.lower() in care_parse.illness:
         print("Adding illness with symptom")
@@ -79,7 +83,7 @@ def add_conditions(name, symptom):
 
 def find_matches(name , illness):
     if not name.lower() in care_parse.patients:
-        print("Patient " + name.capitalize() + "does not exist.")
+        print("Patient " + name.capitalize() + " does not exist.")
     else:
         match = 0                                               # not optimal method
                                                                 # see to find a map funtion for better time
@@ -129,7 +133,7 @@ def diagnose_patient(name):
 
     print("\nYou are diagnosing a patient")
     if not name.lower() in care_parse.patients:
-        print("Patient " + name.capitalize() + "does not exist.")
+        print("Patient " + name.capitalize() + " does not exist.")
     else:
         matchF = 0
         matchC = 0
@@ -149,7 +153,7 @@ def diagnose_patient(name):
             print("Patient has " + str(matchC) + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
         elif(matchF >= 60):
-            print("Patient has " + str(matchF) + "% of the symptoms of a cold.")
+            print("Patient has " + str(matchF) + "% of the symptoms of a flu.")
             print("Patient could have the flu")
         else:
             print("Patient " + name.capitalize() + "has" +str(matchF) + "% of the symptoms of a flu")
@@ -160,14 +164,36 @@ def diagnose_patient(name):
 
 
 def display_help():
-    print("Hello!"
-          "\nCARE is an experimental Health Care Protocol Language."
-          "\nTo create a patient: PATIENT_NAME.()"
-          "\nTo add symptoms to a patient: PATIENT_NAME.has()"
-          "\nTo view patient symptoms: PATIENT_NAME.list()"
-          "\nImportant: Only enter 1 symptom at a time."
-          "\nImportant: Symptoms must always be added in lowercase")
+    print('''Care is a prototype Health Care protocol language
 
+    To create a patient simply write the patient's name followed by .create()
+    ex Angel.create()
+
+    To remove a patient simply write the patient's name followed by .remove
+    ex Angel.remove()
+    
+    To add a symptom: use the patient's name then use .has() with symptom
+    ex: Angel.has(fever)
+    
+    To list a patient's symptom's use .list() 
+    ex: Angel.list()
+
+    To auto diagnose patient simply write the patient's name followed by .diagnose()
+    ex: Angel.diagnose()
+    
+    To define your own illnesses simply write ailment(ILLNESS).create() 
+    ex: ailment(flu).create() 
+    
+    To add symtpoms to your defined illness write ailment(ILLNESS).add(SYMPTOM) 
+    ex: ailment(flu).add(fever) 
+    
+    To add patient to queue write the keyword QUEUE followed by the patient's name
+    ex: queue(Angel)
+    
+    To review a patient and remove from queue use the attend keyword
+    ex: attend()
+  
+    ''')
 
 def exit_program():
     print("")
