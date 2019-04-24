@@ -1,8 +1,12 @@
 import sys
+import queue
+
 from CARE import care_parse
 
 cold = ["sneezing", "sore throat", "congestion", "coughing"]
 flu = ["fever", "aches", "chills", "fatigue", "coughing", "headache"]
+definitions = []
+p = queue.Queue(maxsize=0)
 
 
 def func_parse(func):
@@ -21,12 +25,24 @@ def create_patient(name):
         print("Added patient: " + name.capitalize())
         care_parse.patients[name.lower()] = []
 
-def remove_patient(name):
+def patient_Queue(name):
     if not name.lower() in care_parse.patients:
-        print("Patient does not exist.")
+        create_illness(name)
     else:
-        print("Removing patient: " + name.capitalize())
-        del(care_parse.patients[name.lower()])
+        print("Patient is now in a waiting queue")
+        p.put(str(name))
+ #       p.put(care_parse.patients[name.lower()])
+
+def patient_Dequeue():
+    if p.empty():
+        print("There are no patients left in queue.")
+
+    else:
+        person = p.get()
+        print("Patient "+ str(person).capitalize() + " has been attended")
+
+
+
 
 def create_illness(name):
     if name.lower() in care_parse.illness:
@@ -34,6 +50,20 @@ def create_illness(name):
     else:
         print("Added illness: " + name.capitalize())
         care_parse.illness[name.lower()] = []
+        definitions.append(name)
+
+
+def remove_patients(name):
+    if name.lower() in care_parse.patients:
+        print("Removing patient : " + name.capitalize())
+        care_parse.patients.pop(name)
+
+
+def remove_illness(name):
+    if name.lower() in care_parse.illness:
+        print("removing illness : " + name.capitalize())
+        care_parse.illness.pop(name)
+
 
 
 def add_conditions(name, symptom):
@@ -56,15 +86,15 @@ def find_matches(name , illness):
 
         for p in care_parse.patients[name.lower()]:
             for d in (care_parse.illness[illness.lower()]):
-                if p == d:
+                if (p == d):
                     match = match + 1
         match = (match/len(care_parse.illness[illness.lower()])*100)
         print("Patient has " + str(match) + "% of the symptoms of a " + illness)
-        if match >= 60:
+        if (match >= 60):
             print("Patient could have a " + illness)
         else:
             print("Current data shows that the patient :")
-            print(name.capitalize() + "does not have enough symptoms to diagnose as having" + illness.capitalize())
+            print(name.capitalize() + "does not have enough symptoms to diagnose as having " + illness.capitalize())
 
 
 def add_symptom(name, symptom):
@@ -95,7 +125,7 @@ def list_illness_conditions(name):
             print(p + "\n")
 
 
-def diagnose_patient(name): #Hardocded
+def diagnose_patient(name):
 
     print("\nYou are diagnosing a patient")
     if not name.lower() in care_parse.patients:
@@ -119,40 +149,24 @@ def diagnose_patient(name): #Hardocded
             print("Patient has " + str(matchC) + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
         elif(matchF >= 60):
-            print("Patient has " + str(matchF) + "% of the symptoms of a flu.")
+            print("Patient has " + str(matchF) + "% of the symptoms of a cold.")
             print("Patient could have the flu")
         else:
+            print("Patient " + name.capitalize() + "has" +str(matchF) + "% of the symptoms of a flu")
+            print("and " + str(matchC) + "% symptoms of a cold")
             print("Could not diagnose patient's condition with current data")
 
         temp = care_parse.patients[name.lower()]
 
 
 def display_help():
-    print('''Care is a prototype Health Care protocol language
-
-    To create a patient simply write the patient's name followed by .create
-
-    ex Angel.create
-    
-    To remove a patient simply write the patient's name followed by .remove
-    
-    ex Angel.remove
-
-    To add a symptom: use the patient's name then use .has() with symptom
-
-    ex: Angel.has(fever)
-
-    To list a patient's symptom's use .list 
-    
-    ex: Angel.list
-
-    To auto diagnose patient simply write : Patient_Name.diagnose
-
-    ex: Angel.diagnose
-
-    to define your own illnesses simply write : define.illness
-
-    to add the symptom just write it inside the add : illness(flu).add() illness(flu0.add(fever)''')
+    print("Hello!"
+          "\nCARE is an experimental Health Care Protocol Language."
+          "\nTo create a patient: PATIENT_NAME.()"
+          "\nTo add symptoms to a patient: PATIENT_NAME.has()"
+          "\nTo view patient symptoms: PATIENT_NAME.list()"
+          "\nImportant: Only enter 1 symptom at a time."
+          "\nImportant: Symptoms must always be added in lowercase")
 
 
 def exit_program():
