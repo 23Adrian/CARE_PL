@@ -1,4 +1,7 @@
-Care is a prototype Health Care protocol language
+Care is a prototype Health Care protocol language.
+
+To run CARE, you need an IDE, like PyCharm or Anaconda, and any version of Python 3.
+Just run the care.py file, and use your console. Here is a quick run-down:
 
     To create a patient simply write the patient's name followed by .create()
     ex Angel.create()
