@@ -8,6 +8,8 @@ reserved = {
     'diagnose': 'DIAGNOSE',
     'create': 'CREATE',
     'define': 'DEFINE',
+    'ailment' : 'AILMENT',
+    'add' : 'ADD',
 
 }
 
@@ -35,6 +37,10 @@ def t_error(t):
 
 t_REMOVE = r'remove'
 
+t_ADD = r'add'
+
+t_AILMENT = r'ailment'
+
 t_DEFINE = r'define'
 
 t_HAS = r'has'
@@ -52,6 +58,3 @@ t_RP = r'\)'
 t_PERIOD = r'\.'
 
 lexer = lex.lex()
-
-
-
