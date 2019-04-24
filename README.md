@@ -1,45 +1,28 @@
-# CARE_PL4
-
 Care is a prototype Health Care protocol language
 
-1.To Create a patient simply write the patient's name
-followed by .create
+    To create a patient simply write the patient's name followed by .create()
+    ex Angel.create()
 
-Ex: 
-Angel.create
-
-2.To remove a patient simply write the patient's name
-followed by .remove
-
-Ex:
-Angel.remove
-
-3.To add a symptom use the patient's name
-then use .has() with symptom
-
-Ex:
-Angel.has(fever)
-
-4.To list a patient's symptoms use list
-
-Ex:
-Angel.list
-
-5.To auto diagnose patient
-    Simply write : Patient_Name.diagnose
-
-Ex:
-Angel.diagnose
-
-6.To define your own illnesses
-    Simply write : define.(illness)
+    To remove a patient simply write the patient's name followed by .remove
+    ex Angel.remove()
     
-Ex:
-define.(flu)
+    To add a symptom: use the patient's name then use .has() with symptom
+    ex: Angel.has(fever)
+    
+    To list a patient's symptom's use .list() 
+    ex: Angel.list()
 
-7.To add the symptom just write it inside the add
-
-Ex:
-illness(flu).add(fever)
-
-
+    To auto diagnose patient simply write the patient's name followed by .diagnose()
+    ex: Angel.diagnose()
+    
+    To define your own illnesses simply write ailment(ILLNESS).create() 
+    ex: ailment(flu).create() 
+    
+    To add symtpoms to your defined illness write ailment(ILLNESS).add(SYMPTOM) 
+    ex: ailment(flu).add(fever) 
+    
+    To add patient to queue write the keyword QUEUE followed by the patient's name
+    ex: queue(Angel)
+    
+    To review a patient and remove from queue use the attend keyword
+    ex: attend()
