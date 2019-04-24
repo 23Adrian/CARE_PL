@@ -61,7 +61,9 @@ def create_illness(name):
 def remove_patients(name):
     if name.lower() in care_parse.patients:
         print("Removing patient : " + name.capitalize())
-        care_parse.patients.pop(name)
+        care_parse.patients.pop(name.lower())
+    else:
+        print("Patient " + name.capitalize() + " does not exist in system.")
 
 
 def remove_illness(name):

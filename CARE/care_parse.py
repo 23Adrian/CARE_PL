@@ -78,15 +78,10 @@ def p_remove_patient(p):
         function_runner.remove_patients(str(p[1]))
 
 
-#def p_list_illness_conditions(p):
-# 3   ''' list_illness_conditions : ID LP ID RP PERIOD ID LP RP'''
-# 3  if len(p) == 9 and p[1] == "illness" and p[6] == "list":
-#     function_runner.list_illness_conditions(str(p[3]))
-
 def p_diagnose_patient(p):
-    ''' diagnose_patient : ID PERIOD DIAGNOSE '''
-    # angel.diagnose                            example of syntax
-    if len(p) == 4 and str(p[3]) == "diagnose":
+    ''' diagnose_patient : ID PERIOD DIAGNOSE LP RP'''
+    # angel.diagnose()                            example of syntax
+    if len(p) == 6 and str(p[3]) == "diagnose":
         function_runner.diagnose_patient(str(p[1]))
 
 def p_specific_diagnose(p):
