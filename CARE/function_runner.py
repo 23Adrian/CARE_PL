@@ -3,9 +3,14 @@ import queue
 
 from CARE import care_parse
 
-cold = ["sneezing", "sore throat", "congestion", "coughing"]
+cold = ["sneezing", "sore_throat", "congestion", "coughing"]
 flu = ["fever", "aches", "chills", "fatigue", "coughing", "headache"]
-definitions = []
+dengue = ["high_fever", "headache", "fatigue", "nausea", "skin_rash", "joint_pain", "vomiting"]
+norovirus = ["nausea", "vomiting", "low_fever", "diarrhea", "malaise", "muscle_pain"]
+stroke = ["dizziness", "severe_headache", "numb_extremities", "confusion"]
+diabetes = ["frequent_urination", "weight_loss", "constant_tiredness", "numb_extremities"]
+
+custom_definitions = []
 
 
 p = queue.Queue(maxsize=0)
@@ -27,7 +32,7 @@ def create_patient(name):
         print("Added patient: " + name.capitalize())
         care_parse.patients[name.lower()] = []
 
-def patient_Queue(name):
+def patient_queue(name):
     if not name.lower() in care_parse.patients:
         print("Patient " + name.capitalize() + " does not exist.")
         create_patient(name)
@@ -40,7 +45,7 @@ def patient_Queue(name):
         print("There are " + str(p.qsize() - 1) + " persons before him/her.")
 
 
-def patient_Dequeue():
+def patient_dequeue():
     if p.empty():
         print("There are no patients left in queue.")
 
@@ -55,7 +60,7 @@ def create_illness(name):
     else:
         print("Added illness: " + name.capitalize())
         care_parse.illness[name.lower()] = []
-        definitions.append(name)
+        custom_definitions.append(name)
 
 
 def remove_patients(name):
@@ -137,29 +142,73 @@ def diagnose_patient(name):
     if not name.lower() in care_parse.patients:
         print("Patient " + name.capitalize() + " does not exist.")
     else:
-        matchF = 0
-        matchC = 0
+        match_flu = 0
+        match_cold = 0
+        match_dengue = 0
+        match_norovirus = 0
+        match_stroke = 0
+        match_diabetes = 0
 
         for p in care_parse.patients[name.lower()]:
             for index in range(len(cold)):
-                if (p == cold[index]):
-                    matchC = matchC+1
+                if p == cold[index]:
+                    match_cold = match_cold+1
 
             for index in range(len(flu)):
-                if (p == flu[index]):
-                    matchF = matchF+1
+                if p == flu[index]:
+                    match_flu = match_flu+1
 
-        matchF = (matchF/len(flu))*100
-        matchC = (matchC/len(cold))*100
-        if(matchC >= 60):
-            print("Patient has " + str(matchC) + "% of the symptoms of a cold.")
+            for index in range(len(dengue)):
+                if p == dengue[index]:
+                    match_dengue = match_dengue+1
+
+            for index in range(len(norovirus)):
+                if p == norovirus[index]:
+                    match_norovirus = match_norovirus+1
+
+            for index in range(len(stroke)):
+                if p == stroke[index]:
+                    match_stroke = match_stroke+1
+
+            for index in range(len(diabetes)):
+                if p == diabetes[index]:
+                    match_diabetes = match_diabetes+1
+
+        match_flu = (match_flu/len(flu))*100
+        match_cold = (match_cold/len(cold))*100
+        match_dengue = (match_dengue/len(dengue))*100
+        match_norovirus = (match_norovirus/len(norovirus))*100
+        match_stroke = (match_stroke/len(stroke))*100
+        match_diabetes = (match_diabetes/len(diabetes))*100
+
+        if match_cold >= 60:
+            print("Patient has " + str(match_cold) + "% of the symptoms of a cold.")
             print( "Patient could have a cold")
-        elif(matchF >= 60):
-            print("Patient has " + str(matchF) + "% of the symptoms of a flu.")
+
+        elif match_flu >= 60:
+            print("Patient has " + str(match_flu) + "% of the symptoms of a flu.")
             print("Patient could have the flu")
+
+        elif match_dengue >= 60:
+            print("Patient has " + str(match_norovirus) + "% of the symptoms of norovirus.")
+            print("Patient could have norovirus")
+
+        elif match_norovirus >= 60:
+            print("Patient has " + str(match_norovirus) + "% of the symptoms of norovirus.")
+            print("Patient could have norovirus")
+
+        elif match_stroke >= 60:
+            print("Patient has " + str(match_stroke) + "% of the symptoms of a stroke.")
+            print("Patient could have suffered a stroke")
+            print("Urgent intervention needed")
+
+        elif match_diabetes >= 60:
+            print("Patient has " + str(match_diabetes) + "% of the symptoms of diabetes.")
+            print("Patient could have diabetes")
+
         else:
-            print("Patient " + name.capitalize() + "has" +str(matchF) + "% of the symptoms of a flu")
-            print("and " + str(matchC) + "% symptoms of a cold")
+            print("Patient " + name.capitalize() + "has" + str(match_flu) + "% of the symptoms of a flu")
+            print("and " + str(match_cold) + "% symptoms of a cold")
             print("Could not diagnose patient's condition with current data")
 
         temp = care_parse.patients[name.lower()]
@@ -196,6 +245,40 @@ def display_help():
     ex: attend()
   
     ''')
+
+
+def display_symptoms():
+    print('''Supported symptoms are the following:
+    
+    sneezing
+    sore_throat
+    congestion
+    coughing
+    low_fever
+    fever
+    high_fever
+    aches
+    chills
+    fatigue
+    coughing
+    headache
+    severe_headache
+    nausea
+    skin_rash
+    joint_pain
+    malaise
+    vomiting
+    diarrhea
+    muscle_pain
+    dizziness
+    numb_extremities
+    confusion
+    frequent_urination
+    weight_loss
+    constant_tiredness
+
+    ''')
+
 
 def exit_program():
     print("")

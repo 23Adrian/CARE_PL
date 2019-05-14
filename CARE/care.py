@@ -1,4 +1,3 @@
-
 from CARE import care_parse
 
 print("Welcome to CARE")
