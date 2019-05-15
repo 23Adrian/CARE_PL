@@ -32,3 +32,5 @@ Just run the care.py file, and use your console. Here is a quick run-down:
     
     To review a patient and remove from queue use the attend keyword
     ex: attend()
+    
+With these basic functions, it will be easier to manage your patients and there symptoms    
