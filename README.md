@@ -1,7 +1,11 @@
 Care is a prototype Health Care protocol language.
 
-To run CARE, you just need version of Python 3. Download the zipfile, extract it to your directory of choice.
-After extracting, navigate to the main CARE_PL with your CMD or Terminal of choice, and execute:
+To run CARE, you just need version of Python 3, and the prompt_toolkit library. First, to install prompt_toolkit use:
+                                          
+                                        pip install prompt_toolkit
+
+After this, download the CARE zipfile, extract it to your directory of choice.
+After extracting, navigate to the main CARE_PL folder with your CMD or Terminal of choice, and execute:
                 
                                         python -m CARE.care
 
