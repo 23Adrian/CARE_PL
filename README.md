@@ -12,6 +12,9 @@ Just run the care.py file, and use your console. Here is a quick run-down:
     To add a symptom: use the patient's name then use .has() with symptom
     ex: Angel.has(fever)
     
+    To view list of symptoms: use the keyword "Symptom"
+    ex: CARE >> symptom
+    
     To list a patient's symptom's use .list() 
     ex: Angel.list()
 
@@ -29,3 +32,5 @@ Just run the care.py file, and use your console. Here is a quick run-down:
     
     To review a patient and remove from queue use the attend keyword
     ex: attend()
+    
+With these basic functions, it will be easier to manage your patients and there symptoms    
