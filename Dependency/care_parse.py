@@ -115,9 +115,8 @@ def p_attend(p):
         function_runner.patient_dequeue()
 
 
-#def p_error(t):
- #   if(t.value):
- #       print("Syntax error at '%s'" % t.value)
+def p_error(t):
+    print("")
 
 
 def do_parse(s):
