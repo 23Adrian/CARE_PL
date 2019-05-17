@@ -1,7 +1,7 @@
 import sys
 import queue
 
-from CARE import care_parse
+from Dependency import care_parse
 
 cold = ["sneezing", "sore_throat", "congestion", "coughing"]
 flu = ["fever", "aches", "chills", "fatigue", "coughing", "headache"]
@@ -99,7 +99,7 @@ def find_matches(name , illness):
             for d in (care_parse.illness[illness.lower()]):
                 if (p == d):
                     match = match + 1
-        match = (match/len(care_parse.illness[illness.lower()])*100)
+        match = (match / len(care_parse.illness[illness.lower()]) * 100)
         print("Patient has " + str(match) + "% of the symptoms of a " + illness)
         if (match >= 60):
             print("Patient could have a " + illness)
