@@ -20,6 +20,7 @@ def p_program(t):
                 | remove_patient
                 | queue
                 | attend
+                | NEWLINE
                 
                 '''
 
@@ -41,6 +42,7 @@ def p_remove_illness(p):
 def p_function(p):
     '''
     function : ID
+
     '''
     if str(p[1]) == "HELP" or str(p[1]) == "help" or str(p[1]) == "Help":
         function_runner.display_help()
@@ -113,8 +115,9 @@ def p_attend(p):
         function_runner.patient_dequeue()
 
 
-def p_error(t):
-    print("Syntax error at '%s'" % t.value)
+#def p_error(t):
+ #   if(t.value):
+ #       print("Syntax error at '%s'" % t.value)
 
 
 def do_parse(s):

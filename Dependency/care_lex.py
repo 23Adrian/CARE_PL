@@ -7,7 +7,6 @@ reserved = {
     'list': 'LIST',
     'diagnose': 'DIAGNOSE',
     'create': 'CREATE',
-    'define': 'DEFINE',
     'ailment': 'AILMENT',
     'add': 'ADD',
 
@@ -17,12 +16,13 @@ tokens = [
     'ID',
     'LP',
     'RP',
-    'PERIOD'
+    'PERIOD',
+    'NEWLINE'
 
 
 ] + list(reserved.values())
 
-t_ignore = r' '
+t_ignore = ' \t'
 
 
 def t_ID(t):
@@ -31,11 +31,11 @@ def t_ID(t):
         t.type = reserved[t.value]
     return t
 
+
 def t_error(t):
     print("Error")
     print(t)
     t.lexer.skip(1)
-
 
 def t_NEWLINE(t):
     r'\n+'
@@ -47,8 +47,6 @@ t_REMOVE = r'remove'
 t_ADD = r'add'
 
 t_AILMENT = r'ailment'
-
-t_DEFINE = r'define'
 
 t_HAS = r'has'
 
