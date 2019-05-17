@@ -1,7 +1,11 @@
 Care is a prototype Health Care protocol language.
 
-To run CARE, you need an IDE, like PyCharm or Anaconda, and any version of Python 3.
-Just run the care.py file, and use your console. Here is a quick run-down:
+To run CARE, you just need version of Python 3. Download the zipfile, extract it to your directory of choice.
+After extracting, navigate to the main CARE_PL with your CMD or Terminal of choice, and execute:
+                
+                                        python -m CARE.care
+
+ Here is a quick run-down:
 
     To create a patient simply write the patient's name followed by .create()
     ex Angel.create()
@@ -33,4 +37,4 @@ Just run the care.py file, and use your console. Here is a quick run-down:
     To review a patient and remove from queue use the attend keyword
     ex: attend()
     
-With these basic functions, it will be easier to manage your patients and there symptoms    
+With these basic functions, it will be easier to manage your patients and their symptoms  
